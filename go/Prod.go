@@ -20,14 +20,14 @@ type TwigView struct {
 
 func (this *TwigView) Init(index int) *TwigView {
 	param := []string{
-		ConfRoot + `/` + ConfPhpPath + `/index.php`, //脚本文件位置
-		"--tplDir=" + ConfRoot + "/" + ConfTwigPath, //传递给php用于查找模板目录
-		"--dev=0", //开发模式不实用缓存，修改后无需重新编译，生产环境需要清除缓存
-		"--cacheDir=" + ConfRoot + "/" + ConfCacheDir,
+		ConfPhpDir + "/index.php", //脚本文件位置
+		"--tplDir=" + ConfTwigDir, //传递给php用于查找模板目录
+		"--dev=0",                 //开发模式不实用缓存，修改后无需重新编译，生产环境需要清除缓存
+		"--cacheDir=" + ConfCacheDir,
 		"--header=" + ConfHeader, //stdin,stdout 值传递的开头和结尾
 		"--footer=" + ConfFooter, //stdin,stdout 值传递的开头和结尾
 	}
-	cmd := exec.Command("php", param...)
+	cmd := exec.Command(ConfPhpFile, param...)
 	pr, pw := io.Pipe()
 	cmd.Stdin = pr
 	outPipe, err := cmd.StdoutPipe()
@@ -43,7 +43,6 @@ func (this *TwigView) Init(index int) *TwigView {
 		println("Cmd Start Error :" + err.Error())
 	}
 	tv := &TwigView{cmd, reader, pr, pw, &sync.Mutex{}, index}
-	//println("php pipe start " , index)
 	return tv
 }
 

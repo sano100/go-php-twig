@@ -57,8 +57,8 @@ while ($stdin = fread(STDIN, 5120)) {
 `
 
 func CheckPHPFileOrCreate() {
-	phpFile := ConfRoot + "/" + ConfPhpPath + "/index.php"
-	composerFile := ConfRoot + "/" + ConfPhpPath + "/composer.json"
+	phpFile := ConfPhpDir + "/index.php"
+	composerFile := ConfPhpDir + "/composer.json"
 	if !isFileExist(phpFile) {
 		createFile(phpFile, []byte(php_content))
 		createFile(composerFile, []byte(composer_content))
