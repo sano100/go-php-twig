@@ -46,11 +46,15 @@ func (this *TwigView) Init(index int) *TwigView {
 	return tv
 }
 
-func RenderPipe(tpl string, data interface{}) string {
+func Render(tpl string, data interface{}) string {
 	if ConfDev {
 		return RenderDev(tpl, data)
+	} else {
+		return RenderPipe(tpl, data)
 	}
+}
 
+func RenderPipe(tpl string, data interface{}) string {
 	index := rand.Intn(ConfNumPipes)
 	tv := TwigViewBox[index]
 	tv.mt.Lock()

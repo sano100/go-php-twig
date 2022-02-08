@@ -53,6 +53,6 @@
  	data["name"] = "this is name"
  	//模板路径说明：基于ConfTwigPath，“/”表示根目录，请使用绝对路径，相对路径会出错
  	//--使用模板嵌套时也一样{% extends "/main.twig" %}，请使用绝对路径
- 	rst := twig.RenderDev("/index.twig", data)
+ 	rst := twig.Render("/index.twig", data)
  	println(rst)
  `
