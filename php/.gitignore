@@ -1,8 +1,0 @@
-*.exe
-/static/upload
-/static/var
-.idea/*
-/var/*
-*.rar
-*.zip
-*.gz

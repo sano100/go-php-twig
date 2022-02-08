@@ -8,10 +8,10 @@ import (
 
 func RenderDev(tpl string, data interface{}) string {
 	param := []string{
-		Root + `/ext/twig/lib/php/index.php`, //脚本文件位置
-		"--tplDir=" + Root + "/views/twig/",  //传递给php用于查找模板目录
-		"--dev=1",                            //开发模式不实用缓存，修改后无需重新编译，生产环境需要清除缓存
-		"--cacheDir=" + ConfCacheDir,
+		ConfRoot + `/` + ConfPhpPath + `/index.php`, //脚本文件位置
+		"--tplDir=" + ConfRoot + "/" + ConfTwigPath, //传递给php用于查找模板目录
+		"--dev=1", //开发模式不实用缓存，修改后无需重新编译，生产环境需要清除缓存
+		"--cacheDir=" + ConfRoot + "/" + ConfCacheDir,
 		"--header=" + ConfHeader, //stdin,stdout 值传递的开头和结尾
 		"--footer=" + ConfFooter, //stdin,stdout 值传递的开头和结尾
 	}

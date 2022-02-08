@@ -1,4 +1,20 @@
-<?php
+package twig
+
+import (
+	"io/ioutil"
+	"os"
+	"path"
+	"strings"
+)
+
+var composer_content = `{
+    "require": {
+        "twig/twig": "~1.0",
+      "ext-json": "*"
+    }
+}
+`
+var php_content = `<?php
 $options = getopt('', array("tplDir::", "dev::", "cacheDir::", "header::", "footer::"));
 
 $cacheDir   = $options["cacheDir"];
@@ -37,4 +53,44 @@ while ($stdin = fread(STDIN, 5120)) {
     $content = $template->render($conf["data"]);
     //STDOUT 返回渲染后的数据
     fwrite(STDOUT, $startFlag.$content .$endFlag."\n");
+}
+`
+
+func CheckPHPFileOrCreate() {
+	phpFile := ConfRoot + "/" + ConfPhpPath + "/index.php"
+	composerFile := ConfRoot + "/" + ConfPhpPath + "/composer.json"
+	if !isFileExist(phpFile) {
+		createFile(phpFile, []byte(php_content))
+		createFile(composerFile, []byte(composer_content))
+	}
+}
+func isFileExist(path string) bool {
+	_, err := os.Lstat(path)
+	return !os.IsNotExist(err)
+}
+func createDirForPath(Path string) error {
+	Path = path.Clean(Path)
+	pathStr := path.Dir(Path)
+	pathStr = strings.ReplaceAll(pathStr, "\\", "/")
+	pathSlice := strings.Split(pathStr, "/")
+	start := ""
+	for index, dir := range pathSlice {
+		if index == 0 {
+			continue
+		}
+		start = start + "/" + dir
+		os.Mkdir(path.Dir(start), 0777)
+	}
+	return os.Mkdir(path.Dir(Path), 0777)
+}
+func createFile(path string, content []byte) {
+	//数据库配置
+	err := createDirForPath(path)
+	if err != nil {
+		println("创建路径", err.Error())
+	}
+	err1 := ioutil.WriteFile(path, content, 0777)
+	if err1 != nil {
+		println("写入文件", err1.Error())
+	}
 }
