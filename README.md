@@ -42,7 +42,7 @@
  	//创建运行所需的php代码
  	//--需要提前准备php环境和composer环境，
  	//--即 php -v 和 composer i 命令均能正常运行；
- 	twig.CheckPHPFileOrCreate()//次方法安装后运行一次即可删除
+ 	twig.CheckPHPFileOrCreate()//此方法安装后运行一次即可删除
  	//--CheckPHPFileOrCreate命令结束后还应切换到ConfPhpDir配置的目录执行composer i命令安装相关依赖
  
  	//初始化的部分，程序运行生命周期只运行一次
