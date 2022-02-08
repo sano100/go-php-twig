@@ -34,7 +34,7 @@
  	//--todo 因为是随机分配，低并发情况可能会出现都挤在同一个线程等待的情况
  	twig.ConfNumPipes = 3
  	
- 	// go 与 php 通信是，总是以ConfHeader开头，以ConfFooter修改，
+ 	// go 与 php 通信是，总是以ConfHeader开头，以ConfFooter结束，
  	// 没有特殊原因无需配置，有默认值，ConfHeader和ConfFooter应该由良好的辨识度，且不能相同
  	//twig.ConfHeader = "[[go_php_piper_start]]"
  	//twig.ConfFooter = "[[go_php_piper_finish]]"
