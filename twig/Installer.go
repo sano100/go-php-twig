@@ -37,7 +37,7 @@ while ($stdin = fread(STDIN, 5120)) {
         $input = "";
     }
     $input .= $stdin;
-    if (substr($stdin, strlen($endFlag) * -1) != $endFlag) {
+    if (substr($input, strlen($endFlag) * -1) != $endFlag) {
         continue;
     }
     $len = strlen($input);
